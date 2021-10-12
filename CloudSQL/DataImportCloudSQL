@@ -1,3 +1,5 @@
+gcloud sql connect taxi --user=root
+
 IP Address of Cloud Shell
 export ADDRESS=$(wget -qO - http://ipecho.net/plain)/32
 gcloud sql instances patch taxi --authorized-networks $ADDRESS
