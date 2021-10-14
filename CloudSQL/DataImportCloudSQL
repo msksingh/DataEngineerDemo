@@ -1,3 +1,4 @@
+gcloud sql instances list
 gcloud sql connect taxi --user=root
 
 IP Address of Cloud Shell
