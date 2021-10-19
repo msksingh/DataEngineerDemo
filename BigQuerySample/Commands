@@ -1,3 +1,5 @@
+Database Name : usa_names
+
 SELECT
   name, gender,
   SUM(number) AS total
