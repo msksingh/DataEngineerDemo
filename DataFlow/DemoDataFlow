@@ -1,0 +1,31 @@
+Creating a Streaming Data Pipeline for a Real-Time Dashboard with Dataflow
+create the taxirides dataset
+bq mk taxirides  
+create the taxirides.realtime table
+bq mk \
+--time_partitioning_field timestamp \
+--schema ride_id:string,point_idx:integer,latitude:float,longitude:float,\
+timestamp:timestamp,meter_reading:float,meter_increment:float,ride_status:string,\
+passenger_count:integer -t taxirides.realtime
+or use 
+ride_id:string,
+point_idx:integer,
+latitude:float,
+longitude:float,
+timestamp:timestamp,
+meter_reading:float,
+meter_increment:float,
+ride_status:string,
+passenger_count:integer
+Create a Cloud Storage bucket
+gsutil mb gs://$DEVSHELL_PROJECT_ID
+Input Pub/Sub topic
+projects/pubsub-public-data/topics/taxirides-realtime
+BigQuery output table
+<myprojectid>:taxirides.realtime
+Bigquery Query
+SELECT * FROM taxirides.realtime LIMIT 10
+Pipeline name
+gcloud dataflow jobs run streaming-taxi-pipeline --gcs-location gs://dataflow-templates-us-central1/latest/PubSub_to_BigQuery --region us-central1 --max-workers 3 --num-workers 2 --staging-location gs://qwiklabs-gcp-00-25431c88ec3b/tmp --parameters inputTopic=projects/pubsub-public-data/topics/taxirides-realtime,outputTableSpec=qwiklabs-gcp-00-25431c88ec3b:taxirides.realtime
+
+
