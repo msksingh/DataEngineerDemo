@@ -1,0 +1,10 @@
+Make BQ external connection to Cloud SQL
+
+bq mk --connection --connection_type='CLOUD_SQL' \
+--properties='{"instanceId":"qwiklabs-gcp-01-9b623624dafa:us-central1:taxi","database":"bts","type":"MYSQL"}' \
+--connection_credential='{"username":"root", "password":"password"}' \
+--project_id=qwiklabs-gcp-01-9b623624dafa --location=us trips_bigquery_connection
+
+Query Data
+
+SELECT * FROM EXTERNAL_QUERY("projects/qwiklabs-gcp-01-9b623624dafa/locations/us/connections/trips_bigquery_connection", "SELECT * FROM bts.trips;");
