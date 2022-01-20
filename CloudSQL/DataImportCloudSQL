@@ -1,3 +1,5 @@
+gcloud sql instances create taxi --tier=db-n1-standard-1 --activation-policy=ALWAYS
+    
 gcloud sql instances list
 gcloud sql connect taxi --user=root
 
